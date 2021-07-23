@@ -5,17 +5,39 @@
 void bisection(float a, float b, float p)
 {
     int k = 0;
-    float x, ya, yx, senoa, senox;
+    float x, ya, yx, senoa, senox, cosa, cosx;
 
     while ((fabs(a - b)) > p)
     {
         k++;
         x = (a + b) / 2;
 
-        senoa = sin(a);
+        //Questao 1A
+        /*senoa = sin(a);
         ya = (a - (senoa * senoa) - 4);
         senox = sin(x);
-        yx = (x - (senox * senox) - 4);
+        yx = (x - (senox * senox) - 4);*/
+
+        //Questao 1B
+        /*senoa = atan(a);
+        ya = senoa + 2*sqrt(a) - 2;
+        senox = atan(x);
+        yx = senox + 2*sqrt(x) - 2;*/
+
+        //Questão 2
+        /*senoa = sin(a);
+        cosa = cos(a);
+        ya = (((senoa * senoa) - (cosa * cosa)) / (exp(-a) - 1));
+        senox = sin(x);
+        cosx = cos(x);
+        yx = (((senox * senox) - (cosx * cosx)) / (exp(-x) - 1));*/
+
+        //Questão 3
+        ya = (pow(a,4)) + (2*(pow(a,3))) - (13*(pow(a,2))) - ((14)*a) + 24;
+        yx = (pow(x,4)) + (2*(pow(x, 3))) - (13*(pow(x, 2))) - ((14)*x) + 24;
+
+        printf("ya: %f\n", ya);
+        printf("yx: %f\n", yx);
 
         if((ya * yx) > 0)
         {
@@ -38,7 +60,7 @@ void MIL(float x0, float p)
     float x, seno, y;
 
     k = 1;
-    
+
     seno = sin(x0);
     x = (x0 - (seno * seno) - 4);
 
@@ -61,14 +83,19 @@ void newton_raphson(float x0 , float p)
     int k = 1; 
     float x, senoa, senob, ya, yb;
 
-    //printf("x0: %f\n", x0);
-
-    senoa = sin(x0);
+    //Questao 1B
+    /*senoa = sin(x0);
     ya = (x0 - (senoa * senoa) - 4);
 
     float x0n = x0 * 2;
     senob = (sin(x0n));
     yb = (1 - (senob));
+
+    x = x0 - (ya/yb);*/
+
+    senoa = atan(x0);
+    ya = senoa + (2*sqrt(x0)) - 2;
+    yb = (1 / (x0 + 1)) + (1/(sqrt(x0)));
 
     x = x0 - (ya/yb);
 
@@ -77,12 +104,9 @@ void newton_raphson(float x0 , float p)
         k++;
         x0 = x;
 
-        senoa = sin(x0);
-        ya = (x0 - (senoa * senoa) - 4);
-
-        x0n = x0 * 2;
-        senob = (sin(x0n));
-        yb = (1 - (senob));
+        senoa = atan(x0);
+        ya = senoa + (2*sqrt(x0)) - 2;
+        yb = (1 / (x0+1)) + (1/(sqrt(x0)));
 
         x = x0 - (ya/yb);
     }
@@ -106,7 +130,7 @@ void main()
 
     printf("Define the variables. \n\n");
 
-    /*printf("a = ");
+    printf("a = ");
     scanf("%f", &a);
 
     printf("b = ");
@@ -116,12 +140,12 @@ void main()
     scanf("%f", &c);
     
     printf("p = ");
-    scanf("%f", &p);*/
+    scanf("%f", &p);
 
-    a = 4;
-    b = 5;
-    c = 4;
-    p = 1E-6;
+    /*a = 0;
+    b = 1;
+    c = 1;
+    p = 1E-6;*/
 
     printf("\n");
 
