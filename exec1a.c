@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-float f(float xf, float p)
+float f(float xf)
 {
     //x = 4;
     printf ("xf: %f\n", xf);
-    printf ("p: %f\n", p);
 
     float seno, y;
 
