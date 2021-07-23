@@ -2,111 +2,53 @@
 #include <stdlib.h>
 #include <math.h>
 
-float c = 0;
-
-float f(float xf)
-{
-    float seno, y;
-
-    seno = sin(xf);
-    y = (xf - (seno * seno) - 4);
-
-    return y;
-}
-
-float fi(float c)
-{
-    float seno, y;
-
-    seno = sin(c);
-    y = (c - (seno * seno) - 4);
-
-    return y;
-}
-
-float f1(float xf1)
-{
-    xf1 = c;
-
-    //printf ("xf1: %f\n", xf1);
-    float sen, y;
-
-    sen = (- sin(2*xf1));
-    y = (1 - (sen));
-
-    //printf("y = %f\n", y);
-
-    return y;
-}
-
-/*float f2(float x)
-{
-    //printf ("x: %f", x);
-    x = 3;
-
-    float coss, y;
-
-    coss = cos(2*x);
-    y = (-2 * coss);
-
-    printf("y = %f", y);
-
-    return y;
-}*/
-
 void bisection(float a, float b, float p)
 {
-    /*printf("a : %0.10f\n", a);
-    printf("b : %0.10f\n", b);
-    printf("a - b : %.10f\n", fabs(a - b));
-    printf("p: %0.10f\n", p);*/
-
     int k = 0;
-    float xb, calcf;
+    float x, ya, yx, senoa, senox;
 
     while ((fabs(a - b)) > p)
     {
         k++;
+        x = (a + b) / 2;
 
-        /*printf("k: %d\n", k);
-        printf("a - b : %.10f\n", fabs(a - b));*/
+        senoa = sin(a);
+        ya = (a - (senoa * senoa) - 4);
+        senox = sin(x);
+        yx = (x - (senox * senox) - 4);
 
-        xb = (a + b) / 2;
-
-        //calcf = f(a) * f(xb);
-
-        if((f(a) * f(xb)) > 0)
+        if((ya * yx) > 0)
         {
-            a = xb;
+            a = x;
         }
         else
         {
-            b = xb;
+            b = x;
         }
     }
     
     printf("- Bisection -\n\n");
-    printf("Approximate Root = %0.9f\n", xb);
+    printf("Approximate Root = %0.9f\n", x);
     printf("Interactions = %d\n\n", k);
 }
 
 void MIL(float x0, float p)
 {
     int k;
-    float x;
+    float x, seno, y;
 
-    x = fi(x0);
     k = 1;
-
-    /*printf("x0: %f\n", x0);
-    printf("k: %d\n", k);
-    printf("x: %f\n", x);*/
+    
+    seno = sin(x0);
+    x = (x0 - (seno * seno) - 4);
 
     while((fabs(x - x0))  > p)
     {
         k++;
         x0 = x;
-        x = fi(x0);
+        
+        seno = sin(x0);
+        x = (x0 - (seno * seno) - 4);
     }
 
     printf("- MIL -\n\n");
@@ -116,38 +58,44 @@ void MIL(float x0, float p)
 
 void newton_raphson(float x0 , float p)
 {
-    int k = 1;
+    int k = 1; 
+    float x, senoa, senob, ya, yb;
 
     //printf("x0: %f\n", x0);
 
-    float xn = x0 - (fi(x0) / f1(x0));
-    /*printf("x: %f\n", xn);
-    printf("x0: %f\n", x0);*/
+    senoa = sin(x0);
+    ya = (x0 - (senoa * senoa) - 4);
 
-    while (fabs(xn - x0) > p)
+    float x0n = x0 * 2;
+    senob = (sin(x0n));
+    yb = (1 - (senob));
+
+    x = x0 - (ya/yb);
+
+    while (fabs(x - x0) > p)
     {
         k++;
-        //printf("k: %d\n", k);
-        x0 = xn;
-        //printf("x0: %f\n", x0);
-        xn = x0 - (f(x0)/f1(x0));
-        //printf("x: %f\n", x);
-        /*if (k < 100)
-        {
-            printf("x%d: %f\n", k, xn);
-            printf("x0%d: %f\n", k, x0);
-        }*/
+        x0 = x;
+
+        senoa = sin(x0);
+        ya = (x0 - (senoa * senoa) - 4);
+
+        x0n = x0 * 2;
+        senob = (sin(x0n));
+        yb = (1 - (senob));
+
+        x = x0 - (ya/yb);
     }
     
     printf("- NEWTON RAPHSON -\n\n");
-    printf("Approximate Root = %0.9f\n", xn);
+    printf("Approximate Root = %0.9f\n", x);
     printf("Interactions = %d\n", k);
 }
 
 
 void main()
 {
-    float a, b, p;
+    float a, b, p, c;
     int choice, k;
 
     /*printf("Define the method for use: \n\n");
