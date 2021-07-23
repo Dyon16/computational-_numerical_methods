@@ -2,94 +2,175 @@
 #include <stdlib.h>
 #include <math.h>
 
-float f(float x) //4,875
+float f(float xf, float p)
 {
-    float y = (x - (sin(x) * sin(x)) - 4);
+    //x = 4;
+    printf ("xf: %f\n", xf);
+    printf ("p: %f\n", p);
+
+    float seno, y;
+
+    seno = sin(xf);
+    y = (xf - (seno * seno) - 4);
+    //printf("f: %f\n", y);
+
     return y;
 }
 
-float bisection(float a, float b, float p)
+float f1(float xf1)
 {
-    printf("a : %f\n", a);
-    printf("b : %f\n", b);
-    printf("a - b : %f\n", abs(a - b));
-    printf("p: %0.9f\n", p);
+    //x = 4;
+
+    //printf ("xf1: %f\n", xf1);
+    float sen, y;
+
+    sen = (- sin(2*xf1));
+    y = (1 - (sen));
+
+    //printf("y = %f\n", y);
+
+    return y;
+}
+
+/*float f2(float x)
+{
+    //printf ("x: %f", x);
+    x = 3;
+
+    float coss, y;
+
+    coss = cos(2*x);
+    y = (-2 * coss);
+
+    printf("y = %f", y);
+
+    return y;
+}*/
+
+void bisection(float a, float b, float p)
+{
+    /*printf("a : %0.10f\n", a);
+    printf("b : %0.10f\n", b);
+    printf("a - b : %.10f\n", fabs(a - b));
+    printf("p: %0.10f\n", p);*/
 
     int k = 0;
-    float x;
+    float xb, calcf, calcabs;
 
     while ((fabs(a - b)) > p)
     {
         k++;
-        printf("k: %d\n", k);
-        printf("a - b : %f\n", abs(a - b));
 
-        x = (a + b) / 2;
+        /*printf("k: %d\n", k);
+        printf("a - b : %.10f\n", fabs(a - b));*/
 
-        int calc = f(a) * f(x);
+        xb = (a + b) / 2;
 
-        if(calc > 0)
+        calcf = f(a) * f(xb);
+
+        if(calcf > 0)
         {
-            a = x;
+            a = xb;
         }
         else
         {
-            b = x;
+            b = xb;
         }
     }
-    printf("x: %f\n", x);
+    
+    printf("- Bisection -\n\n");
+    printf("Approximate Root = %0.9f\n", xb);
+    printf("Interactions = %d\n\n", k);
+}
+
+void MIL(float x0, float p)
+{
+    int k;
+    float xm;
+
+    xm = f(x0);
+    k = 1;
+
+    /*printf("x0: %f\n", x0);
     printf("k: %d\n", k);
-    return x;
+    printf("x: %f\n", x);*/
+
+    while((fabs(xm - x0))  > p)
+    {
+        k++;
+        x0 = xm;
+        xm = f(x0);
+    }
+
+    printf("- MIL -\n\n");
+    printf("Approximate Root = %0.9f\n", xm);
+    printf("Interactions = %d\n", k);
 }
 
-/*float MIL(a , b, p)
+void newton_raphson(float x0 , float p)
 {
+    int k = 1;
+
+    //printf("x0: %f\n", x0);
+
+    float xn = x0 - (f(x0) / f1(x0));
+    /*printf("x: %f\n", xn);
+    printf("x0: %f\n", x0);*/
+
+    while (fabs(xn - x0) > p)
+    {
+        k++;
+        //printf("k: %d\n", k);
+        x0 = xn;
+        //printf("x0: %f\n", x0);
+        xn = x0 - (f(x0)/f1(x0));
+        //printf("x: %f\n", x);
+        /*if (k < 100)
+        {
+            printf("x%d: %f\n", k, xn);
+            printf("x0%d: %f\n", k, x0);
+        }*/
+    }
     
+    printf("- NEWTON RAPHSON -\n\n");
+    printf("Approximate Root = %0.9f\n", xn);
+    printf("Interactions = %d\n", k);
 }
 
-float Newton_Raphson(a , b, p)
-{
-    
-}*/
 
 void main()
 {
     float a, b, p, c;
     int choice, k;
 
-    printf("Define the method for use: \n\n");
+    /*printf("Define the method for use: \n\n");
     printf("1 - Bisection;\n");
     printf("2 - MIL; \n");
     printf("3 - Newton Raphson.\n");
-    scanf("%d", &choice);
+    scanf("%d", &choice);*/
 
     printf("Define the variables. \n\n");
 
-    printf("a = ");
+    /*printf("a = ");
     scanf("%f", &a);
 
     printf("b = ");
     scanf("%f", &b);
+
+    printf("c = ");
+    scanf("%f", &c);
     
     printf("p = ");
-    scanf("%f", &p);
+    scanf("%f", &p);*/
 
-    switch(choice)
-    {
-        case 1:
-            bisection(a, b, p);
-            break;
-        case 2:
-            bisection(a, b, p);
-            break;
-        case 3:
-            bisection(a, b, p);
-            break;
-        default:
-            printf("Invalid. Choice the options 1, 2 or 3.\n");
-    }
+    a = 4;
+    b = 5;
+    c = 4;
+    p = 1E-6;
 
-    c = bisection(a, b, p);
-    printf("Approximate Root = %0.9f\n", c);
-    //printf("Interactions = %d\n", k);
+    printf("\n");
+
+    bisection(a, b, p);
+    MIL(c, p);
+    newton_raphson(c, p);
 } 
