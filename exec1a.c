@@ -2,23 +2,31 @@
 #include <stdlib.h>
 #include <math.h>
 
+float c = 0;
+
 float f(float xf)
 {
-    //x = 4;
-    printf ("xf: %f\n", xf);
-
     float seno, y;
 
     seno = sin(xf);
     y = (xf - (seno * seno) - 4);
-    //printf("f: %f\n", y);
+
+    return y;
+}
+
+float fi(float c)
+{
+    float seno, y;
+
+    seno = sin(c);
+    y = (c - (seno * seno) - 4);
 
     return y;
 }
 
 float f1(float xf1)
 {
-    //x = 4;
+    xf1 = c;
 
     //printf ("xf1: %f\n", xf1);
     float sen, y;
@@ -54,7 +62,7 @@ void bisection(float a, float b, float p)
     printf("p: %0.10f\n", p);*/
 
     int k = 0;
-    float xb, calcf, calcabs;
+    float xb, calcf;
 
     while ((fabs(a - b)) > p)
     {
@@ -65,9 +73,9 @@ void bisection(float a, float b, float p)
 
         xb = (a + b) / 2;
 
-        calcf = f(a) * f(xb);
+        //calcf = f(a) * f(xb);
 
-        if(calcf > 0)
+        if((f(a) * f(xb)) > 0)
         {
             a = xb;
         }
@@ -85,25 +93,25 @@ void bisection(float a, float b, float p)
 void MIL(float x0, float p)
 {
     int k;
-    float xm;
+    float x;
 
-    xm = f(x0);
+    x = fi(x0);
     k = 1;
 
     /*printf("x0: %f\n", x0);
     printf("k: %d\n", k);
     printf("x: %f\n", x);*/
 
-    while((fabs(xm - x0))  > p)
+    while((fabs(x - x0))  > p)
     {
         k++;
-        x0 = xm;
-        xm = f(x0);
+        x0 = x;
+        x = fi(x0);
     }
 
     printf("- MIL -\n\n");
-    printf("Approximate Root = %0.9f\n", xm);
-    printf("Interactions = %d\n", k);
+    printf("Approximate Root = %0.9f\n", x);
+    printf("Interactions = %d\n\n", k);
 }
 
 void newton_raphson(float x0 , float p)
@@ -112,7 +120,7 @@ void newton_raphson(float x0 , float p)
 
     //printf("x0: %f\n", x0);
 
-    float xn = x0 - (f(x0) / f1(x0));
+    float xn = x0 - (fi(x0) / f1(x0));
     /*printf("x: %f\n", xn);
     printf("x0: %f\n", x0);*/
 
@@ -139,7 +147,7 @@ void newton_raphson(float x0 , float p)
 
 void main()
 {
-    float a, b, p, c;
+    float a, b, p;
     int choice, k;
 
     /*printf("Define the method for use: \n\n");
