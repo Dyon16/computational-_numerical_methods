@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define e 2.718
+
 void bisection(float a, float b, float p)
 {
     int k = 0;
@@ -11,6 +13,9 @@ void bisection(float a, float b, float p)
     {
         k++;
         x = (a + b) / 2;
+
+        /*printf("a: %f\n", a);
+        printf("b: %f\n", b);*/
 
         //Questao 1A
         /*senoa = sin(a);
@@ -33,11 +38,26 @@ void bisection(float a, float b, float p)
         yx = (((senox * senox) - (cosx * cosx)) / (exp(-x) - 1));*/
 
         //Questão 3
-        ya = (pow(a,4)) + (2*(pow(a,3))) - (13*(pow(a,2))) - ((14)*a) + 24;
-        yx = (pow(x,4)) + (2*(pow(x, 3))) - (13*(pow(x, 2))) - ((14)*x) + 24;
+        /*ya = (pow(a,4)) + (2*(pow(a,3))) - (13*(pow(a,2))) - ((14)*a) + 24;
+        yx = (pow(x,4)) + (2*(pow(x, 3))) - (13*(pow(x, 2))) - ((14)*x) + 24;*/
 
-        printf("ya: %f\n", ya);
-        printf("yx: %f\n", yx);
+        //Questão 4a
+        /*ya = ((2.2)*(a)) + (4.7) - ((0.4)*(pow(a, 2)));
+        yx = ((2.2)*(x)) + (4.7) - ((0.4)*(pow(x, 2)));*/
+
+        //Questão 4b
+        /*ya = ((7*a) - ((5)*(pow(a, 2))) + ((6)*(pow(a, 3))) - (2));
+        yx = ((7*x) - ((5)*(pow(x, 2))) + ((6)*(pow(x, 3))) - (2));*/
+
+        //Questão 4c
+        /*ya = ((0.9 - (0.4*a))/a);
+        yx = ((0.9 - (0.4*x))/x);*/
+
+        //Questão 4d
+        senoa = cosh(a);
+        ya = (senoa - ((2)*(pow(e, -0.3 * a))));
+        senox = cosh(x);
+        yx = (senox - ((2)*(pow(e, -0.3 * x))));
 
         if((ya * yx) > 0)
         {
@@ -89,13 +109,29 @@ void newton_raphson(float x0 , float p)
 
     float x0n = x0 * 2;
     senob = (sin(x0n));
-    yb = (1 - (senob));
+    yb = (1 - (senob));*/
 
-    x = x0 - (ya/yb);*/
-
-    senoa = atan(x0);
+    /*senoa = atan(x0);
     ya = senoa + (2*sqrt(x0)) - 2;
-    yb = (1 / (x0 + 1)) + (1/(sqrt(x0)));
+    yb = (1 / (x0 + 1)) + (1/(sqrt(x0)));*/
+
+    //Questão 4a
+    /*ya = (2.2*x0) + (4.7) - ((0.4)*(pow(x0,2)));
+    yb = (2.2) - (0.8*x);*/
+
+    //Questão 4b
+    /*ya = ((7*x0) - ((5)*(pow(x0, 2))) + ((6)*(pow(x0, 3))) - (2));
+    yb = (((18)*(pow(x0, 2))) - (10*x0) + (7));*/
+
+    //Questão 4c
+    /*ya = ((0.9 - (0.4*x0))/x0);
+    yb = (0 - ((0.9)/(pow(x0, 2))));*/
+
+    //Questão 4d
+    senoa = cosh(x0);
+    ya = (senoa - ((2)*(pow(e, -0.3 * x0))));
+    senob = sinh(x0);
+    yb = (senob + (0.6*(pow(e, -0.3 * x0))));
 
     x = x0 - (ya/yb);
 
@@ -104,9 +140,27 @@ void newton_raphson(float x0 , float p)
         k++;
         x0 = x;
 
-        senoa = atan(x0);
+        /*senoa = atan(x0);
         ya = senoa + (2*sqrt(x0)) - 2;
-        yb = (1 / (x0+1)) + (1/(sqrt(x0)));
+        yb = (1 / (x0+1)) + (1/(sqrt(x0)));*/
+
+        //Questão 4a
+        /*ya = (2.2*x0) + (4.7) - ((0.4)*(pow(x0,2)));
+        yb = (2.2) - (0.8*x);*/
+
+        //Questão 4b
+        /*ya = ((7*x0) - ((5)*(pow(x0, 2))) + ((6)*(pow(x0, 3))) - (2));
+        yb = (((18)*(pow(x0, 2))) - (10*x0) + (7));*/
+
+        //Questão 4c
+        /*ya = ((0.9 - (0.4*x0))/x0);
+        yb = (0 - ((0.9)/(pow(x0, 2))));*/
+
+        //Questão 4d
+        senoa = cosh(x0);
+        ya = (senoa - ((2)*(pow(e, -0.3 * x0))));
+        senob = sinh(x0);
+        yb = (senob + (0.6*(pow(e, -0.3 * x0))));
 
         x = x0 - (ya/yb);
     }
@@ -142,10 +196,10 @@ void main()
     printf("p = ");
     scanf("%f", &p);
 
-    /*a = 0;
-    b = 1;
-    c = 1;
-    p = 1E-6;*/
+    /*a = 7;
+    b = 8;
+    c = 6;
+    p = 1E-3;*/
 
     printf("\n");
 
