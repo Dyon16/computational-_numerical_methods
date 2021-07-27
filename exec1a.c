@@ -14,16 +14,13 @@ void bisection(float a, float b, float p)
         k++;
         x = (a + b) / 2;
 
-        /*printf("a: %f\n", a);
-        printf("b: %f\n", b);*/
-
         //Questao 1A
         /*senoa = sin(a);
         ya = (a - (senoa * senoa) - 4);
         senox = sin(x);
         yx = (x - (senox * senox) - 4);*/
 
-        //Questao 1B
+        //Questao 1b
         /*senoa = atan(a);
         ya = senoa + 2*sqrt(a) - 2;
         senox = atan(x);
@@ -54,10 +51,19 @@ void bisection(float a, float b, float p)
         yx = ((0.9 - (0.4*x))/x);*/
 
         //Questão 4d
-        senoa = cosh(a);
+        /*senoa = cosh(a);
         ya = (senoa - ((2)*(pow(e, -0.3 * a))));
         senox = cosh(x);
-        yx = (senox - ((2)*(pow(e, -0.3 * x))));
+        yx = (senox - ((2)*(pow(e, -0.3 * x))));*/
+
+        //Questão 6
+        /*senoa = sin(0.75 * a);
+        senox = sin(0.75 * x);
+
+        ya = ((1 - (exp((-0.5) * a))) * (senoa));
+        yx = ((1 - (exp((-0.5) * x))) * (senox));*/
+
+        //Questão 7
 
         if((ya * yx) > 0)
         {
@@ -70,8 +76,8 @@ void bisection(float a, float b, float p)
     }
     
     printf("- Bisection -\n\n");
-    printf("Approximate Root = %0.9f\n", x);
-    printf("Interactions = %d\n\n", k);
+    printf("Approximate Root = %0.6f\n", x);
+    printf("Iteractions = %d\n\n", k);
 }
 
 void MIL(float x0, float p)
@@ -81,21 +87,69 @@ void MIL(float x0, float p)
 
     k = 1;
 
-    seno = sin(x0);
-    x = (x0 - (seno * seno) - 4);
+    //Questão 1a
+    /*seno = sin(x0);
+    x = ((seno * seno) + 4);*/
+
+    //Questão 1b
+    /*seno = atan(x0);
+    y = (((0 - seno) + 2)/2);
+    x = pow(y, 2);*/
+
+    //Questão 4a1
+    /*y = (((0 - 4.7) - (2.2 * x0)) / (0 - 0.4)); // 7,14
+    x = sqrt(y);*/
+
+    //Questão 4a2
+    //x = ((-4.7) / ((-0.4 * x0) + 2.2)); // -1,16
+
+    //Questão 4b
+    //x = ((2) / ((6*(pow(x0, 2)) - (5 * x0)) + (7))); 
+
+    //Questão 4c
+    //x = 0.9/0.4;
+
+    //Questão 4d
+    /*seno = cosh(x0);
+    y = ((seno / 2) / (0.3));
+    x = - (log(y) / log(e));*/
 
     while((fabs(x - x0))  > p)
     {
         k++;
         x0 = x;
         
-        seno = sin(x0);
-        x = (x0 - (seno * seno) - 4);
+        //Questão 1a
+        /*seno = sin(x0);
+        x = ((seno * seno) + 4);*/
+
+        //Questão 1b
+        /*seno = atan(x0);
+        y = (((0 - seno) + 2)/2);
+        x = pow(y, 2);*/
+
+        //Questão 4a1
+        /*y = (((0 - 4.7) - (2.2 * x0)) / (0 - 0.4)); // 7,14
+        x = sqrt(y);*/
+
+        //Questão 4a2
+        //x = ((-4.7) / ((-0.4 * x0) + 2.2)); // -1,64
+
+        //Questão 4b
+        //x = ((2) / ((6*(pow(x0, 2)) - (5 * x0)) + (7)));
+
+        //Questão 4c
+        //x = 0.9/0.4;
+
+        //Questão 4d
+        /*seno = cosh(x0);
+        y = ((seno / 2) / (0.3));
+        x = - (log(y) / log(e));*/
     }
 
     printf("- MIL -\n\n");
-    printf("Approximate Root = %0.9f\n", x);
-    printf("Interactions = %d\n\n", k);
+    printf("Approximate Root = %0.6f\n", x);
+    printf("Iteractions = %d\n\n", k);
 }
 
 void newton_raphson(float x0 , float p)
@@ -103,7 +157,7 @@ void newton_raphson(float x0 , float p)
     int k = 1; 
     float x, senoa, senob, ya, yb;
 
-    //Questao 1B
+    //Questao 1a
     /*senoa = sin(x0);
     ya = (x0 - (senoa * senoa) - 4);
 
@@ -111,6 +165,7 @@ void newton_raphson(float x0 , float p)
     senob = (sin(x0n));
     yb = (1 - (senob));*/
 
+    //Questao 1b
     /*senoa = atan(x0);
     ya = senoa + (2*sqrt(x0)) - 2;
     yb = (1 / (x0 + 1)) + (1/(sqrt(x0)));*/
@@ -128,10 +183,10 @@ void newton_raphson(float x0 , float p)
     yb = (0 - ((0.9)/(pow(x0, 2))));*/
 
     //Questão 4d
-    senoa = cosh(x0);
+    /*senoa = cosh(x0);
     ya = (senoa - ((2)*(pow(e, -0.3 * x0))));
     senob = sinh(x0);
-    yb = (senob + (0.6*(pow(e, -0.3 * x0))));
+    yb = (senob + (0.6*(pow(e, -0.3 * x0))));*/
 
     x = x0 - (ya/yb);
 
@@ -140,13 +195,22 @@ void newton_raphson(float x0 , float p)
         k++;
         x0 = x;
 
+        //Questao 1a
+        /*senoa = sin(x0);
+        ya = (x0 - (senoa * senoa) - 4);
+
+        float x0n = x0 * 2;
+        senob = (sin(x0n));
+        yb = (1 - (senob));*/
+
+        //Questão 1b
         /*senoa = atan(x0);
         ya = senoa + (2*sqrt(x0)) - 2;
         yb = (1 / (x0+1)) + (1/(sqrt(x0)));*/
 
         //Questão 4a
-        /*ya = (2.2*x0) + (4.7) - ((0.4)*(pow(x0,2)));
-        yb = (2.2) - (0.8*x);*/
+        ya = (2.2*x0) + (4.7) - ((0.4)*(pow(x0,2)));
+        yb = (2.2) - (0.8*x);
 
         //Questão 4b
         /*ya = ((7*x0) - ((5)*(pow(x0, 2))) + ((6)*(pow(x0, 3))) - (2));
@@ -157,17 +221,17 @@ void newton_raphson(float x0 , float p)
         yb = (0 - ((0.9)/(pow(x0, 2))));*/
 
         //Questão 4d
-        senoa = cosh(x0);
+        /*senoa = cosh(x0);
         ya = (senoa - ((2)*(pow(e, -0.3 * x0))));
         senob = sinh(x0);
-        yb = (senob + (0.6*(pow(e, -0.3 * x0))));
+        yb = (senob + (0.6*(pow(e, -0.3 * x0))));*/
 
         x = x0 - (ya/yb);
     }
     
     printf("- NEWTON RAPHSON -\n\n");
-    printf("Approximate Root = %0.9f\n", x);
-    printf("Interactions = %d\n", k);
+    printf("Approximate Root = %0.6f\n", x);
+    printf("Iteractions = %d\n", k);
 }
 
 
@@ -175,12 +239,6 @@ void main()
 {
     float a, b, p, c;
     int choice, k;
-
-    /*printf("Define the method for use: \n\n");
-    printf("1 - Bisection;\n");
-    printf("2 - MIL; \n");
-    printf("3 - Newton Raphson.\n");
-    scanf("%d", &choice);*/
 
     printf("Define the variables. \n\n");
 
